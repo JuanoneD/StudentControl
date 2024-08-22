@@ -1,7 +1,7 @@
 // Importando as tabelas do DB
 const sala = require('../model/sala');
 const aluno = require('../model/aluno');
-const { raw } = require('express');
+
 module.exports = {
     async sala(req, res){
         res.render('../views/RegisterClass');
@@ -23,9 +23,10 @@ module.exports = {
         // Encontrando todas as salas disponíveis no SQL
         const salas = await sala.findAll({
             raw: true, // Retorna somente os valores de uma tabela, sem os metadados.
-            attributes: ['IDSala', 'Nome','Maxima','Minima']
+            attributes: ['IDSala', 'Nome','Maxima','Minima','Capacidade']
         });
         // Renderizando e passando o nome das salas para o front
+
         res.render('../views/RegisterStudent', {salas});
     },
     async alunoInsert(req,res){
@@ -37,16 +38,28 @@ module.exports = {
             attributes: ['IDSala','Nome','Capacidade','Maxima','Minima']
         })
 
-        if(dados.StudentAge>salas.Maxima || dados.StudentAge<salas.Minima){
+        let currentYear = new Date().getFullYear();
+        let birthdateYear = new Date(dados.StudentBirthdate).getFullYear();
+        let StudentAge = currentYear - birthdateYear;
+
+        let count = await aluno.count({
+            where:{
+                IDSala : salas.IDSala
+            }
+        });
+
+        if(StudentAge>salas.Maxima || StudentAge<salas.Minima || count >= salas.Capacidade ){
             return;
         }
+
+        console.log(dados.StudentBirthdate);
 
         if(req.file){
             picture = req.file.filename;
         }
         await aluno.create({
             Nome: dados.StudentName,
-            Idade: dados.StudentAge,
+            DataNas : dados.StudentBirthdate,
             Sexo: dados.StudentSex,
             Foto: picture,
             IDSala: dados.IdSala

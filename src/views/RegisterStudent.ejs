@@ -46,8 +46,8 @@
                     <input type="text" class="form-control" id="StudentName"  name="StudentName" aria-describedby="Nome do Estudante">
                 </div>
                 <div class="mb-3">
-                    <label for="StudentAge" class="form-label">Idade</label>
-                    <input type="number" class="form-control" id="StudentAge"  name="StudentAge" aria-describedby="idade do Estudante">
+                    <label for="StudentAge" class="form-label">Data Nascimento</label>
+                    <input type="date" class="form-control" id="StudentBirthdate"  name="StudentBirthdate" aria-describedby="idade do Estudante">
                 </div>
                 <div class="mb-3">
                     <label for="StudentSex" class="form-label">Sexo</label>
@@ -57,7 +57,7 @@
                     <label for="Select" class="form-label">Sala</label>
                     <select id="Select"  name="IdSala"  class="form-select">
                         <%for(let i=0;i<salas.length;i++){ %>
-                            <option value="<%=salas[i].IDSala%>"><%=salas[i].Nome%> | Idade Minima:<%=salas[i].Minima%> | Idade Maxima:<%=salas[i].Maxima%></option>
+                            <option value="<%=salas[i].IDSala%>"><%=salas[i].Nome%> | Idade Minima:<%=salas[i].Minima%> | Idade Maxima:<%=salas[i].Maxima%> | Capacidade:<%= salas[i].Capacidade %></option>
                         <%}%>
                     </select>
                   </div>

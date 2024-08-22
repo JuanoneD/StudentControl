@@ -21,4 +21,28 @@ route.post('/UpdateStudent/:id',multer(config).single('ImgLink'),editar.update);
 route.get('/UpdateClass/:id',editar.Salas);
 route.post('/UpdateClass/:id',editar.UpdateSalas);
 
+const Aluno = require('./src/model/aluno');
+const Sala = require('./src/model/sala');
+
+
+route.get('/DeleteStudent/:id',async(req,res)=>{
+    var deleted_id = req.params.id;
+    await Aluno.destroy({
+        where:{
+            IDAluno : deleted_id
+        }
+    })
+    res.redirect('/');
+});
+
+route.get('/DeleteClass/:id',async(req,res)=>{
+    var deleted_id = req.params.id;
+    await Sala.destroy({
+        where:{
+            IDSala : deleted_id
+        }
+    })
+    res.redirect('/');
+})
+
 module.exports = route;

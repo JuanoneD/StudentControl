@@ -4,10 +4,9 @@ const aluno = require('../model/aluno');
 module.exports = {
     async alunos(req,res){
         const update_id = req.params.id;
-        console.log(update_id);
         const alunos = await aluno.findByPk(update_id,{
             raw:true,
-            attributes: ['IDAluno','Nome','Idade','Sexo','Foto','IDSala']
+            attributes: ['IDAluno','Nome','DataNas','Sexo','Foto','IDSala']
         });
         const salas = await sala.findAll({raw:true,attributes:['IDSala','Nome','Maxima','Minima']});
         res.render('../views/UpdateStudent',{salas,alunos});
@@ -27,7 +26,7 @@ module.exports = {
 
         await aluno.update({
             Nome: dados.StudentName,
-            Idade: dados.StudentAge,
+            DataNas: dados.StudentAge,
             Sexo: dados.StudentSex,
             IDSala: dados.IdSala
         },

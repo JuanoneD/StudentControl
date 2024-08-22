@@ -34,17 +34,19 @@
 
     <main>
         <div class="container d-flex justify-content-end" style="margin-top: 1%;">
-
+            <p class="form-label p-2">Alunos: <%=countStudent%></p>
+            
             <form method="post" onchange="document.getElementById('mudarSala').click()">
                 <div class="d-flex">
                     <label for="Select" class="form-label p-2">Sala:</label>
                     <select id="Select" name="sala_filter" class="form-select">
                         <option value="">Selecionar uma opção</option>
                         <% for(let i=0;i<salas.length;i++){ %>
-                            <option value='<%= salas[i].IDSala %>' <%= id_filter == salas[i].IDSala ? 'selected' : ''%>> <%= salas[i].Nome %> </option>
+                            <option value='<%= salas[i].IDSala %>' <%= id_filter == salas[i].IDSala ? 'selected' : ''%>> <%= salas[i].Nome %></option>
                         <% } %>
                     </select>
                     <a class="btn btn-primary" style="height: 100%;margin-left: 2%; margin-top: 1.6%;" href="/UpdateClass/<%=id_filter%>" <%= !id_filter?'hidden':'' %>>Editar</a>
+                    <a class="btn btn-danger" style="height: 100%;margin-left: 2%; margin-top: 1.6%;" href="/DeleteClass/<%=id_filter%>" <%= !id_filter?'hidden':'' %>>Deletar</a>
                 </div>
                 <input type="submit" hidden id="mudarSala">
             </form>
@@ -66,8 +68,9 @@
                             </div>
                             <div class="card-body">
                                 <p class="card-text fw-bold"><%= alunos[i].Nome %></p>
-                                <p class="card-text">Idade: <%= alunos[i].Idade %></p>
+                                <p class="card-text">Idade: <%= new Date().getFullYear() - new Date(alunos[i].DataNas).getFullYear()%></p>
                                 <a href="/UpdateStudent/<%=alunos[i].IDAluno%>" class="btn btn-primary">Editar</a>
+                                <a href="/DeleteStudent/<%=alunos[i].IDAluno%>" class="btn btn-danger">Delete</a>
                             </div>
                         </div>
                     </div>

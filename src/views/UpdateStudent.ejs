@@ -47,7 +47,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="StudentAge" class="form-label">Idade</label>
-                    <input type="number" value="<%= alunos.Idade%>" class="form-control" id="StudentAge"  name="StudentAge" aria-describedby="idade do Estudante">
+                    <input type="date" value="<%= alunos.DataNas.toISOString().substr(0,10)%>" class="form-control" id="StudentAge"  name="StudentAge" aria-describedby="idade do Estudante">
                 </div>
                 <div class="mb-3">
                     <label for="StudentSex" class="form-label">Sexo</label>
