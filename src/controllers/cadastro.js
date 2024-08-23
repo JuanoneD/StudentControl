@@ -26,8 +26,14 @@ module.exports = {
             attributes: ['IDSala', 'Nome','Maxima','Minima','Capacidade']
         });
         // Renderizando e passando o nome das salas para o front
+        const SalasWithCapacity = await Promise.all(salas.map(async (sala)=>{
+            const countStudent = await aluno.count({
+                where : {IDSala: sala.IDSala}
+            });
+            return{...sala,countStudent};
+        }));
 
-        res.render('../views/RegisterStudent', {salas});
+        res.render('../views/RegisterStudent', {salas:SalasWithCapacity});
     },
     async alunoInsert(req,res){
         const dados = req.body;
@@ -51,8 +57,6 @@ module.exports = {
         if(StudentAge>salas.Maxima || StudentAge<salas.Minima || count >= salas.Capacidade ){
             return;
         }
-
-        console.log(dados.StudentBirthdate);
 
         if(req.file){
             picture = req.file.filename;

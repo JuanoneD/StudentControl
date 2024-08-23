@@ -57,7 +57,7 @@
                     <label for="Select" class="form-label">Sala</label>
                     <select id="Select"  name="IdSala"  class="form-select">
                         <%for(let i=0;i<salas.length;i++){ %>
-                            <option value="<%=salas[i].IDSala%>"><%=salas[i].Nome%> | Idade Minima:<%=salas[i].Minima%> | Idade Maxima:<%=salas[i].Maxima%> | Capacidade:<%= salas[i].Capacidade %></option>
+                            <option value="<%=salas[i].IDSala%>" <%= salas[i].countStudent >= salas[i].Capacidade? 'disabled': '' %>><%=salas[i].Nome%> | Idade Minima:<%=salas[i].Minima%> | Idade Maxima:<%=salas[i].Maxima%> | Capacidade:<%= salas[i].countStudent%>/<%= salas[i].Capacidade %></option>
                         <%}%>
                     </select>
                   </div>

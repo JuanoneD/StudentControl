@@ -7,7 +7,7 @@ module.exports = {
         // Encontrando todas as salas disponíveis no SQL
         const salas = await sala.findAll({
             raw: true, // Retorna somente os valores de uma tabela, sem os metadados.
-            attributes: ['IDSala', 'Nome']
+            attributes: ['IDSala', 'Nome','Capacidade']
         });
 
         const alunos = await aluno.findAll({
@@ -15,7 +15,7 @@ module.exports = {
             attributes:['IDAluno','Nome','DataNas','Sexo','Foto','IDSala'],
         })
         const countStudent = await aluno.count({});
-        // Renderizando e passando o nome das salas para o front
+
         res.render('../views/Index', {salas,alunos,id_filter:'',countStudent});
     },
     async pagInicialPost(req, res){
@@ -28,7 +28,7 @@ module.exports = {
         const countStudent = await aluno.count({
             where : (id_filter? {IDSala: id_filter} :{})
         });
-        const salas = await sala.findAll({ raw: true, attributes: ['IDSala', 'Nome'] });
+        const salas = await sala.findAll({ raw: true, attributes: ['IDSala', 'Nome','Capacidade'] });
         res.render('../views/index', {salas, alunos, id_filter,countStudent});
     }
 }

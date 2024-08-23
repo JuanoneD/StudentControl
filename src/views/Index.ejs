@@ -34,14 +34,15 @@
 
     <main>
         <div class="container d-flex justify-content-end" style="margin-top: 1%;">
-            <p class="form-label p-2">Alunos: <%=countStudent%></p>
-            
+            <% for(let i=0;i<salas.length;i++){if(salas[i].IDSala == id_filter){%>
+            <p class="form-label p-2">Alunos: <%=countStudent%>/<%=salas[i].Capacidade %></p>
+            <%}}%>
             <form method="post" onchange="document.getElementById('mudarSala').click()">
                 <div class="d-flex">
                     <label for="Select" class="form-label p-2">Sala:</label>
                     <select id="Select" name="sala_filter" class="form-select">
                         <option value="">Selecionar uma opção</option>
-                        <% for(let i=0;i<salas.length;i++){ %>
+                        <% for(let i=0;i<salas.length;i++){%>
                             <option value='<%= salas[i].IDSala %>' <%= id_filter == salas[i].IDSala ? 'selected' : ''%>> <%= salas[i].Nome %></option>
                         <% } %>
                     </select>
